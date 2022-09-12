@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+#define inArr(a,n) {for(int i = 1;i<n+1;i++){cin>>a[i];}}
+#define outArr(a,n) {for(int i = 0;i<n;i++){cout<<a[i];}}
+using namespace std;
+map<int,int>alpha;
+int solve(int arr[],int n){
+  if(n==0){
+    return 0;
+  }
+  if(alpha.find(n)!=alpha.end()){
+    return alpha[n];
+  }
+  int maxVal=INT_MIN;
+  for(int i=1;i<=n;i++){
+    int cost = arr[i] +solve(arr,n-i);
+    if(maxVal<cost){
+      maxVal=cost;
+    }
+  }
+  if(alpha.find(n)==alpha.end()){
+    alpha.insert({n,maxVal});
+  } 
+  return alpha[n];
+}
+
+
+ int main(){
+ int n;
+ cin>>n;
+ int arr[n+1]{0};
+ inArr(arr,n);
+ cout<<solve(arr,n);
+  return 0;
+}
